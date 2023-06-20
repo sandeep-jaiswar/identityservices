@@ -42,8 +42,14 @@ export class AuthController {
     user.picture = idTokenClaims.picture;
     user.emailVerified = idTokenClaims.email_verified;
     const data = await this.userService.createOrUpdateUser(user);
-    res.cookie('access_token', access_token, { httpOnly: true });
-    res.cookie('refresh_token', refresh_token, { httpOnly: true });
+    res.cookie('access_token', access_token, {
+      httpOnly: true,
+      domain: '.vercel.app',
+    });
+    res.cookie('refresh_token', refresh_token, {
+      httpOnly: true,
+      domain: '.vercel.app',
+    });
     res.send(data);
   }
 }
